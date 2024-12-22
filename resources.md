@@ -41,6 +41,7 @@ From there, I read through these:
 5. Video on CSS intuition: https://youtu.be/i1FeOOhNnwU?si=uMwTzmScS4bN4qaP
 6. A cool cheat sheet for flex boxes: https://yoksel.github.io/flex-cheatsheet/
 7. A setup for Next.js https://www.youtube.com/watch?v=AaQfCKJLMGY
+8. images and fonts: https://nextjs.org/docs/app/getting-started/images-and-fonts
 
 
 
