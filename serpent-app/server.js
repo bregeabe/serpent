@@ -11,7 +11,7 @@ async function init() {
     require("./api/routes/leetcode.routes")(app);
     require("./api/routes/github.routes")(app);
     const port = process.env.PORT;
- 
+
     app.listen(process.env.PORT, () => {
         console.log("server running on port " + port);
     });
