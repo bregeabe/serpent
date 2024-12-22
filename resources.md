@@ -29,6 +29,10 @@ From there, I watched these youtube videos:
 5. This repo on security of home servers: https://github.com/imthenachoman/How-To-Secure-A-Linux-Server
 6. Made the ip static: https://www.freecodecamp.org/news/setting-a-static-ip-in-ubuntu-linux-ip-address-tutorial/
 
+It took me a few hours in total but I got both machines up and running and successfully SSH'd into them.
+
+Before I open them up to the public, I need to figure out setting them both up on VLAN's so that even if I mess up some form of security, my parents personal devices on the internet aren't affected.
+
 ## Frontend
 
 Again, **ChatGPT** is the first source of information. I just explained exactly what I wanted out of my application, and asked what a complete beginner would have to do to accomplish this goal.
@@ -42,6 +46,26 @@ From there, I read through these:
 6. A cool cheat sheet for flex boxes: https://yoksel.github.io/flex-cheatsheet/
 7. A setup for Next.js https://www.youtube.com/watch?v=AaQfCKJLMGY
 8. images and fonts: https://nextjs.org/docs/app/getting-started/images-and-fonts
+
+This got me to the point of creating the landing page for Serpent. Note, I took the default landing page, referenced the documentation listed above, and went through line by line asking ChatGPT to explain anything I didn't understand. A list of dumb questions I asked:
+
+- What do I say yes and no to on the initial Next.js project setup questions?
+- What are the best practices for structuring my directories
+- Can I name my pages something other than page.tsx?
+- Where do I put my API's if not in the app directory
+
+Along the way, I also created a logo, it's just the symbol 'Delta' with two oval's as eyes.
+
+I would say that this concludes the very basics of frontend for me, so here are a couple things that I learned at this milestone.
+
+__Next.js is Node.js__—This one is funny because I literally had no clue that one of the selling points of Next.js was the fact that it has full-stack capabilities. This caused me to delete my front and backend repo's and create a new single repo to make my app.
+
+__Free Tier of Canva sucks__—Thats all, I used Draw.io and then imported into canva just to get dimensions right, god Canva sucks.
+
+__Next.js structure__—It's pretty cool that Next.js lets you structure your app so cleanly. I'm sure it's the standard but having your main 'app' directory that holds your home page, your global styles, etc, and then subdirectories to hold other pages of your app along with component folders for each is very intuitive.
+
+And that's about all for the very beginning. I really did only visit those 8 links, truly just use ChatGPT. Don't have it write anything for you, just ask it literally anything that you don't understand. Yeah—it's bad at math and can't write complex things for you in one query, but one thing it's good at is regurgitating documentation in a more digestible format. 
+
 
 
 
