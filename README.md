@@ -36,7 +36,7 @@ Quantum computing engulfs classical computing by being able represent 0 and 1, a
 <br>&nbsp;- So I'd like to explore maybe tracking words typed, maybe how many functions you wrote, or how many times you used a certain word, or how many times you used a certain function. Now, I don't know if this is even possible, let alone legal to take text from the user's vs environment, but if it could work it would be cool.
 
 ## Stack
-I am going to use Next.js (Typescript, Tailwind) along with MySQL for the database, and host everything on my own home server.
+I am going to use Next.js along with MySQL for the database, and host everything on my own home server.
 
 ## Mockups
 I have begun designing the potential frontend interface, along with the database structure. Below you can see both.

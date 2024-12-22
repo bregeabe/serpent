@@ -40,6 +40,7 @@ From there, I read through these:
 4. CSS gridbox intro: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout
 5. Video on CSS intuition: https://youtu.be/i1FeOOhNnwU?si=uMwTzmScS4bN4qaP
 6. A cool cheat sheet for flex boxes: https://yoksel.github.io/flex-cheatsheet/
+7. A setup for Next.js https://www.youtube.com/watch?v=AaQfCKJLMGY
 
 
 
