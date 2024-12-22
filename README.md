@@ -1,6 +1,5 @@
-# Serpent
-
-Serpent is an app that I am creating for my senior project at Northern Michigan University for the Winter 2025 semester.
+![preferences](serpent-app/public/serpent-logo-landscape.png)
+Serpent is an app that [I am](http://abrege11.github.io) creating for my senior project at Northern Michigan University for the Winter 2025 semester.
 
 ## Overview
 The goal of Serpent is to be the Strava of programming. It shocks me that no one has made a tracking app for the group of people who create the tracking apps. Programmers—some the most type A people alive, for some reason don't have a cool way of tracking their progress.
