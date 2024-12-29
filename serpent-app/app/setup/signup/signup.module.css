@@ -1,0 +1,52 @@
+.page {
+    display: grid;
+    grid-template-rows: 20vh 40vh 20vh 20vh;
+    align-items: center;
+    justify-items: center;
+    min-height: 100svh;
+    font-family: var(--font-geist-sans);
+  }
+  
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    grid-row-start: 2;
+  }
+  
+  .logo {
+    align-self: center;
+  }
+  
+  .ctas {
+    margin: auto;
+  }
+  
+  .ctasSecondary {
+    margin: auto;
+    display: flex;
+    gap: 2em;
+  }
+  
+  .textboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .page {
+      padding: 32px;
+      padding-bottom: 80px;
+    }
+  
+    .main {
+      align-items: center;
+    }
+  
+    .ctas {
+      flex-direction: column;
+    }
+  }
+  
+  

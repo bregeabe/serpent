@@ -30,12 +30,12 @@ export default function Home() {
         </div>
         <div className={pageStyles.ctasSecondary}>
           <Button
-            href="/setup/login" variant="secondary"
+            href="/setup/signup" variant="secondary"
           >
           sign up
           </Button>
           <Button
-            href="/setup/login" variant="secondary"
+            href="/" variant="secondary"
           >
           forgot password
           </Button>
