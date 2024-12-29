@@ -1,4 +1,4 @@
-![preferences](serpent-app/public/serpent-logo-landscape.png)
+![preferences](serpent-app/public/serpent-logo-landscape.png)<br>
 Serpent is an app that [I am](http://abrege11.github.io) creating for my senior project at Northern Michigan University for the Winter 2025 semester.
 
 ## Overview

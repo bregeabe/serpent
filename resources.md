@@ -64,7 +64,7 @@ __Free Tier of Canva sucks__—Thats all, I used Draw.io and then imported into 
 
 __Next.js structure__—It's pretty cool that Next.js lets you structure your app so cleanly. I'm sure it's the standard but having your main 'app' directory that holds your home page, your global styles, etc, and then subdirectories to hold other pages of your app along with component folders for each is very intuitive.
 
-And that's about all for the very beginning. I really did only visit those 8 links, truly just use ChatGPT. Don't have it write anything for you, just ask it literally anything that you don't understand. Yeah—it's bad at math and can't write complex things for you in one query, but one thing it's good at is regurgitating documentation in a more digestible format. 
+And that's about all for the very beginning. I really did only visit those 8 links, truly just use ChatGPT. Don't have it write anything for you, just ask it literally anything that you don't understand. Yeah—it's bad at math and can't write complex things for you in one query, but one thing it's good at is regurgitating documentation in a more digestible format.
 
 
 
@@ -74,4 +74,7 @@ And that's about all for the very beginning. I really did only visit those 8 lin
 Yet again I start with **ChatGPT**—you know the drill.
 
 1. Figuring out GitHub's API usage: https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-with-a-github-app-on-behalf-of-a-user
+2. how to use Next properly: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
+3. https://stackoverflow.com/questions/75418329/how-do-you-put-api-routes-in-the-new-app-folder-of-next-js
+
 
