@@ -7,9 +7,14 @@ type ButtonProps = {
     href?: string;
     variant?: 'primary' | 'secondary';
     isExternal?: boolean;
+    width?: string | number;
 }
 
-export default function Button({ children, onClick, href, variant = 'primary', isExternal = false }: ButtonProps) {
+export default function Button({ children, onClick, href, variant = 'primary', isExternal = false, width }: ButtonProps) {
+    const buttonStyle = {
+        width: typeof width === 'number' ? `${width}px` : width,
+    };
+
     if (href) {
         if (isExternal) {
             return (
@@ -18,13 +23,14 @@ export default function Button({ children, onClick, href, variant = 'primary', i
                     className={`${styles.button} ${styles[variant]}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    style={buttonStyle}
                 >
                     {children}
                 </a>
             );
         }
         return (
-            <Link href={href} className={`${styles.button} ${styles[variant]}`}>
+            <Link href={href} className={`${styles.button} ${styles[variant]}`} style={buttonStyle}>
                 {children}
             </Link>
         );

@@ -1,44 +1,69 @@
-import styles from "./login.module.css";
+"use client";
+import Image from "next/image";
+import pageStyles from "./login.module.css";
+import Button from '../../components/Button'
+import Footer from '../../components/Footer'
+import InputField from "../components/InputField";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/setup/login`}
+    <div className={pageStyles.page}>
+
+      <main className={pageStyles.main}>
+      <Image className={pageStyles.logo}
+          src="/serpent-logo-landscape.png"
+          alt="landscape-logo"
+          width={270}
+          height={100}
+          priority
+        />
+        <div className={pageStyles.textboxes}>
+          <InputField placeholder="username"/>
+          <InputField placeholder="password" type="password"/>
+        </div>
+        <div className={pageStyles.ctas}>
+          <Button
+            href="/setup/login" variant="primary" width="100px"
           >
-            Get started
-          </a>
-          <a
-            className={styles.primary}
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/about`}
+            login
+          </Button>
+        </div>
+        <div className={pageStyles.ctasSecondary}>
+          <Button
+            href="/setup/login" variant="secondary"
           >
-            About Serpent
-          </a>
+          sign up
+          </Button>
+          <Button
+            href="/setup/login" variant="secondary"
+          >
+          forgot password
+          </Button>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://github.com/abrege11/serpent/"
-          target="_blank"
-        >
+      <Footer gridArea={4}>
+
+        <Button
+        href="https://github.com/abrege11/serpent/" isExternal variant="secondary">
           Serpent's repo
-        </a>
-        <a
-          href="https://abrege11.github.io"
-          target="_blank"
-        >
+        </Button>
+
+        <Button
+        href="https://abrege11.github.io" isExternal variant="secondary">
           My portfolio
-        </a>
-        <a
-          href={`${process.env.NEXT_PUBLIC_BASE_URL}/contact`}
-          target="_blank"
-        >
-         Contact me
-        </a>
-      </footer>
+        </Button>
+
+        <Button
+        href="/contact" variant="secondary">
+          Contact me
+        </Button>
+
+        <Button
+        href="/" variant="secondary">
+          Home
+        </Button>
+
+      </Footer>
     </div>
   );
 }
