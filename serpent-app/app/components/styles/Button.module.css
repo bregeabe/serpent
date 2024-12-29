@@ -1,0 +1,28 @@
+.button {
+    appearance: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.primary {
+    border-radius: 128px;
+    height: 40px;
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    background: var(--primary-color);
+    color: var(--background-color);
+    min-width: 180px;
+}
+
+.secondary {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

@@ -1,52 +1,51 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import pageStyles from "./page.module.css";
+import Button from './components/Button'
+import Footer from './components/Footer'
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image className={styles.logo}
+    <div className={pageStyles.page}>
+      <main className={pageStyles.main}>
+        <Image className={pageStyles.logo}
           src="/serpent-logo-landscape.png"
           alt="landscape-logo"
-          width={300}
+          width={270}
           height={100}
           priority
         />
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/setup/login`}
+
+        <div className={pageStyles.ctas}>
+          <Button
+            href="/setup/login" variant="primary"
           >
             Get started
-          </a>
-          <a
-            className={styles.primary}
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/about`}
+          </Button>
+          <Button
+            href="/about" variant="primary"
           >
             About Serpent
-          </a>
+          </Button>
         </div>
       </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://github.com/abrege11/serpent/"
-          target="_blank"
-        >
+      <Footer gridArea={4}>
+
+        <Button
+        href="https://github.com/abrege11/serpent/" isExternal variant="secondary">
           Serpent's repo
-        </a>
-        <a
-          href="https://abrege11.github.io"
-          target="_blank"
-        >
+        </Button>
+
+        <Button
+        href="https://abrege11.github.io" isExternal variant="secondary">
           My portfolio
-        </a>
-        <a
-          href={`${process.env.NEXT_PUBLIC_BASE_URL}/contact`}
-          target="_blank"
-        >
-         Contact me
-        </a>
-      </footer>
+        </Button>
+
+        <Button
+        href="/contact" variant="secondary">
+          Contact me
+        </Button>
+
+      </Footer>
     </div>
   );
 }
