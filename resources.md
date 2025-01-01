@@ -77,4 +77,11 @@ Yet again I start with **ChatGPT**—you know the drill.
 2. how to use Next properly: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
 3. https://stackoverflow.com/questions/75418329/how-do-you-put-api-routes-in-the-new-app-folder-of-next-js
 
+Okay so now I had to import over the leetcode api routes [from my other repo](https://github.com/abrege11/leetcode-api), which were modified from the posts below.
+4. https://leetcode.com/discuss/general-discussion/1297705/is-there-public-api-endpoints-available-for-leetcode
+5. https://www.reddit.com/r/leetcode/comments/14dn47v/leetcode_api/
+Likewise it was a long time ago, but I think I glanced at this repo as well:
+6. https://github.com/alfaarghya/alfa-leetcode-api
+Regardless, these people are way smarter than me and I merely translated their knowledge so check them out for more information on the api's.
+
 
