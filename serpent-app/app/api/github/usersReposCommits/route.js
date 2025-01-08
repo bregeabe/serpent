@@ -28,8 +28,7 @@ export async function GET(request) {
 
       const repos = await response.json();
       const commitsDetails = await Promise.all(repos.map(async (repo) => {
-        // Fetch commits for each repository
-        const commitsUrl = repo.commits_url.replace('{/sha}', ''); // Adjust URL to get commits
+        const commitsUrl = repo.commits_url.replace('{/sha}', '');
         const commitsResponse = await fetch(commitsUrl, {
           headers: { 'Authorization': `token ${token}` },
         });

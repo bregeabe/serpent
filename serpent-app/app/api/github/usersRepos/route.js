@@ -28,28 +28,8 @@ export async function GET(request) {
 
     const repos = await response.json();
     const repoDetails = await Promise.all(repos.map(async (repo) => {
-      // Fetch commits for each repository
-      const commitsResponse = await fetch(repo.commits_url.replace('{/sha}', ''), {
-        headers: { 'Authorization': `token ${token}` },
-      });
-
-      const issuesResponse = await fetch(`https://api.github.com/repos/${username}/${repo.name}/issues`, {
-        headers: { 'Authorization': `token ${token}` },
-      });
-
-      const contributorsResponse = await fetch(`https://api.github.com/repos/${username}/${repo.name}/contributors`, {
-        headers: { 'Authorization': `token ${token}` },
-      });
-
-      const commits = commitsResponse.ok ? await commitsResponse.json() : [];
-      const issues = issuesResponse.ok ? await issuesResponse.json() : [];
-      const contributors = contributorsResponse.ok ? await contributorsResponse.json() : [];
-
       return {
         repoName: repo.name,
-        commits,
-        issues,
-        contributors,
       };
     }));
 
