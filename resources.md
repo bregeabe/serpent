@@ -33,6 +33,10 @@ It took me a few hours in total but I got both machines up and running and succe
 
 Before I open them up to the public, I need to figure out setting them both up on VLAN's so that even if I mess up some form of security, my parents personal devices on the internet aren't affected.
 
+So now I got the servers setup but the router I was using didn't support VLAN configurations, so I will have to wait for the new one to come in and help my parents set it up over FaceTime.
+
+While trying to set it up the first time, I broke out wifi and it only took 2 hours to fix! But it's pretty easy, you just add a VLAN group and add the ports that you have your servers connected to, I'll update the extra security precautions I took once I finish the setup.
+
 ## Frontend
 
 Again, **ChatGPT** is the first source of information. I just explained exactly what I wanted out of my application, and asked what a complete beginner would have to do to accomplish this goal.
