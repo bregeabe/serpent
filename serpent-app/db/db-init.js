@@ -23,6 +23,34 @@ CREATE TABLE IF NOT EXISTS users (
 );
 `;
 
+const posts = `
+CREATE TABLE IF NOT EXISTS posts (
+  post_id char(36) NOT NULL PRIMARY KEY,
+  user_id char(36) NOT NULL,
+  title TEXT,
+  duration TIMESTAMP,
+  chartData TEXT,
+  public BOOLEAN,
+  medals TEXT,
+  posted_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  foreign key (user_id) references users(user_id)
+);
+`;
+
+const sessions = `
+CREATE TABLE IF NOT EXISTS sessions (
+  session_id char(36) NOT NULL PRIMARY KEY,
+  user_id char(36) NOT NULL,
+  post_id char(36) NOT NULL,
+  start TIMESTAMP,
+  end TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  foreign key (user_id) references users(user_id),
+  foreign key (post_id) references posts(post_id)
+);
+`;
+
 const github_profiles = `
 CREATE TABLE IF NOT EXISTS github_profiles (
   profile_id char(36) NOT NULL PRIMARY KEY,
@@ -138,6 +166,54 @@ CREATE TABLE IF NOT EXISTS leetcode_solutions (
 );
 `;
 
+const other_activities = `
+CREATE TABLE IF NOT EXISTS other_activities (
+  acticity_id char(36) NOT NULL PRIMARY KEY,
+  name TEXT,
+  type char(36) NOT NULL,
+  description TEXT,
+  public BOOLEAN,
+  upvotes INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+`;
+
+const user_activities = `
+CREATE TABLE IF NOT EXISTS user_activities (
+  user_acticity_id char(36) NOT NULL PRIMARY KEY,
+  acticity_id char(36) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  foreign key (acticity_id) references other_activities(acticity_id)
+);
+`;
+
+const intervals = `
+CREATE TABLE IF NOT EXISTS intervals (
+  interval_id char(36) NOT NULL PRIMARY KEY,
+  session_id char(36) NOT NULL,
+  start TIMESTAMP,
+  end TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  foreign key (session_id) references sessions(session_id)
+);
+`;
+
+const intervalActivity = `
+CREATE TABLE IF NOT EXISTS intervalActivity (
+  interval_activity_id char(36) NOT NULL PRIMARY KEY,
+  interval_id char(36) NOT NULL,
+  commit_id char(36),
+  solution_id char(36),
+  activity_id char(36),
+  submission_id char(36),
+  start TIMESTAMP,
+  end TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  foreign key (interval_id) references intervals(interval_id),
+  foreign key (acticity_id) references other_activities(acticity_id)
+);
+`;
+
 
 
 async function setupDatabase() {
@@ -156,6 +232,14 @@ async function setupDatabase() {
     console.log(`creating users table`)
     await connection.query(users);
     console.log('users table created');
+
+    console.log(`creating posts table`)
+    await connection.query(posts);
+    console.log('posts table created');
+
+    console.log(`creating sessions table`)
+    await connection.query(sessions);
+    console.log('sessions table created');
 
     // GITHUB SECTION
     console.log(`creating github_profiles table`)
@@ -186,6 +270,23 @@ async function setupDatabase() {
     console.log(`creating leetcode_solutions table`)
     await connection.query(leetcode_solutions);
     console.log('leetcode_solutions table created');
+
+    // MISC
+    console.log(`creating other_activities table`)
+    await connection.query(other_activities);
+    console.log('other_activities table created');
+
+    console.log(`creating user_activities table`)
+    await connection.query(user_activities);
+    console.log('user_activities table created');
+
+    console.log(`creating intervals table`)
+    await connection.query(intervals);
+    console.log('intervals table created');
+
+    console.log(`creating intervalActivity table`)
+    await connection.query(intervalActivity);
+    console.log('intervalActivity table created');
 
     await connection.end();
     console.log('db initialized, exiting.');
