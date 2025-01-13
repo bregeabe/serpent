@@ -20,6 +20,9 @@
 
 .ctas {
   margin: auto;
+  display: flex;
+  gap: 2em;
+  flex-direction: row;
 }
 
 .ctasSecondary {

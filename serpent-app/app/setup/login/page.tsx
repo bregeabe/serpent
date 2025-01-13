@@ -1,11 +1,27 @@
 "use client";
+
 import Image from "next/image";
 import pageStyles from "./login.module.css";
 import Button from '../../components/Button'
 import Footer from '../../components/Footer'
 import InputField from "../components/InputField";
+import { useSession, signIn } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function LoginPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (session) {
+      router.push("/dashboard");
+    }
+  }, [session, router]);
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className={pageStyles.page}>
 
@@ -26,6 +42,11 @@ export default function Home() {
             href="/setup/login" variant="primary" width="100px"
           >
             login
+          </Button>
+          <Button
+            onClick={() => signIn("google")} variant="primary" width="100px"
+          >
+            login with google
           </Button>
         </div>
         <div className={pageStyles.ctasSecondary}>
