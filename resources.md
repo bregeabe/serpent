@@ -94,4 +94,17 @@ I just got done creating the database and adding in the tables for leetcode and 
 - Asking chatGPT or looking up a youtube video will get you going fast, you just download youre database of choice—SQL in my case, and create a schema/database which you will add your tables too. Look in /serpent/serpent-app/db/db.init.js to see how to use JavaScript to connect to and query your database. It's pretty straight forward.
 - The structure is honestly all holistic, I'm sure I violated many principles of table structuring (because I did) and you couldn't pay me to give a shit. If you're at a company OF COURSE adhere to their preferences, but at the end of the day they're no more than that: preferences. Obviously you want to normalize when possible, avoid redundant columns and information between tables blah blah blah, but it just doesn't matter. For example, when creating Antibiotic software for NMU we started by modeling the database around the data, specimens, users, patients, etc. As I started developing more and actually __using__ the data in the database, the JOIN queries to fetch data were a nightmare, so instead I just made a table for each screen. Is this the 'right' way? No, and here's a test for you narcs, it's fill in the blank and strictly pass fail: 'I don't give a ___'. Lucky for you, if you put any profane word in there, you passed!!!!! But you get it. As long as your database is secure, make it easy to use for your application.
 
+### 1/13/25
+Now adding dates to hopefully help the timeline a bit, now I'm adding authentication. My goal is to get OAuth and GitHub's API working before my calc 3 class at 1pm. First
+- https://support.google.com/cloud/answer/6158849?hl=en
+This got me setup with my client id, now I'm using this link:
+- https://developers.google.com/identity/protocols/oauth2
+I read through this and clinked the link related to client-side (javascript) applications as that is what applied to me.
+- https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow
+From here, I decided to go with next-auth: https://next-auth.js.org/getting-started/example because it's easy, so the implementation of what I used to get setup is at that link.
+
+Okay so prompted with ChatGPT a bit because I was getting weird errors, and sure enough, use pages/api not app/api because next-auth doesn't like app routing. This might save you 20 minutes of confusion...
+
+
+
 
