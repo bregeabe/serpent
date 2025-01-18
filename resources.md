@@ -5,6 +5,7 @@ I also will compile a list of resources that I used to complete this project. I 
 - never setup a home server
 - never done any form of frontend web development
 - never done any frontend design
+- never made a vscode extension
 
 so I think it would also be helpful to know what I used to actually learn how to do all of this.
 
@@ -94,7 +95,7 @@ I just got done creating the database and adding in the tables for leetcode and 
 - Asking chatGPT or looking up a youtube video will get you going fast, you just download youre database of choice—SQL in my case, and create a schema/database which you will add your tables too. Look in /serpent/serpent-app/db/db.init.js to see how to use JavaScript to connect to and query your database. It's pretty straight forward.
 - The structure is honestly all holistic, I'm sure I violated many principles of table structuring (because I did) and you couldn't pay me to give a shit. If you're at a company OF COURSE adhere to their preferences, but at the end of the day they're no more than that: preferences. Obviously you want to normalize when possible, avoid redundant columns and information between tables blah blah blah, but it just doesn't matter. For example, when creating Antibiotic software for NMU we started by modeling the database around the data, specimens, users, patients, etc. As I started developing more and actually __using__ the data in the database, the JOIN queries to fetch data were a nightmare, so instead I just made a table for each screen. Is this the 'right' way? No, and here's a test for you narcs, it's fill in the blank and strictly pass fail: 'I don't give a ___'. Lucky for you, if you put any profane word in there, you passed!!!!! But you get it. As long as your database is secure, make it easy to use for your application.
 
-### 1/13/25
+## 1/13/25
 Now adding dates to hopefully help the timeline a bit, now I'm adding authentication. My goal is to get OAuth and GitHub's API working before my calc 3 class at 1pm. First
 - https://support.google.com/cloud/answer/6158849?hl=en
 This got me setup with my client id, now I'm using this link:
@@ -104,6 +105,31 @@ I read through this and clinked the link related to client-side (javascript) app
 From here, I decided to go with next-auth: https://next-auth.js.org/getting-started/example because it's easy, so the implementation of what I used to get setup is at that link.
 
 Okay so prompted with ChatGPT a bit because I was getting weird errors, and sure enough, use pages/api not app/api because next-auth doesn't like app routing. This might save you 20 minutes of confusion...
+
+## 1/14/25
+Created and submitted my proposal which can be found in proposal.md in the root of the project. Along with that, I created the frontend for the preferences screen pictured in the README. In all honesty, I didn't track what I did, I was in a rush and had to move on, but that's all for today.
+
+## 1/17/25
+As I've tried to fall asleep these last couple nights, I've begun to realize how much I bit off, and if I can chew it all. The answer is yes, but not how I'm going about it right now. Let me explain.
+
+A full scale web application as a solo developer is no small task, on top of that, I have until late April to get it done. This has been stressing me out, but I'm doing it to myself. The thing is that I don't know frontend, so why do it? I find myself trying to create the components and build these pages synchronously—mimicking a normal development cycle. However, I realized that I'm dumb, and there's no real reason to not do all of one at once, and save the other for last.
+
+As I thought, I realize that I have these specs for what I need on the frontend, so why build it right now? I can see what data, endpoints, and helpers that I am going to need, so why not just write the entire backend right now? I'm sure there is some issue with this, and I will get bit by it, but that's what I'm going with right now. Because this development will be unorthodox, so I'm only hurting my efficiency by trying to remain orthodox.
+
+So that brings me to now, I added the endpoints for signing up and logging in, along with the helpers that were needed.
+
+Authentication is a huge black box, or at least it was for me, but it really isn't hard. You just need to store usernames and encrypt passwords, and of course make sure you protect your SQL queries from injection attacks. NEVER directly pass a variable into a query, instead parameterize all of your queries: https://techcommunity.microsoft.com/blog/sqlserver/how-and-why-to-use-parameterized-queries/383483.
+
+For password encryption, I used Argon2. All you need is a helper function to hash the password and store it, and then a verifying function to check the plain text password provided against the hashed on in the database.
+
+Some other things I ran into were the fact that people using Google's OAuth to sign in wouldn't necessarily have the first name, last name structure that I setup, neither the username, neither a password even. Knowing this, it makes sense why some companies don't let you login normally if you previously logged in with Google. Regardless, I made a quick helper function that turned a full name into a first and last name, along with a helper function that sets the users username to the name before the @ in their email.
+
+Pretty standard, but then I realized that someones google account could match an existing username in the database. Ugh. So another quick helper function to add numbers to the end of someones username if it is already taken and they were signed up through OAuth. With that, authentication is about done, there are a few more things that I want to add but I want to move onto other parts as of now.
+
+## 1/18/25
+I added a TODO list in TODO.md to help me spec out how much I am going to have to do. Not as much when you write it down, but the little nuances of each item will kill me for sure. My next step was going to be getting the VSCode extension working, but I think I'll hold off on that for now until I get to the point where I am implementing the Tracking aspect.
+
+I'm going to bite the bullet and try and finish designing, if you look now, which is benign because you can't see the state of the TODO as I'm writing, but there are only 3/11 pages done. I have more but I don't like the designs as I've continued the development. This is essential (unfortunately) if I actually want to be able to make the backend first. If I have good designs, I will know what I need for the backend, along with a way smoother road to implementing that on the frontend. I hate designing and I'm bad at it but it is a necessary evil for what I'm trying to do.
 
 
 

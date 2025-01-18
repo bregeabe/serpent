@@ -50,4 +50,4 @@
 - [x] leetcode data getters
 - [x] github data getters
 - [ ] vscode extension
-- [ ] redo resources
+- [x] redo resources
