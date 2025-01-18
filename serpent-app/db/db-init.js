@@ -12,11 +12,12 @@ const schemaName = process.env.SCHEMA_NAME;
 const users = `
 CREATE TABLE IF NOT EXISTS users (
   user_id char(36) NOT NULL PRIMARY KEY,
+  google_id char(36),
   first_name varchar(50) NOT NULL,
-  last_name varchar(50) NOT NULL,
+  last_name varchar(50),
   email varchar(100) UNIQUE,
   username varchar(50) NOT NULL UNIQUE,
-  password varchar(100) NOT NULL,
+  password varchar(100),
   github_username varchar(100),
   leetcode_username varchar(100),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -168,7 +169,7 @@ CREATE TABLE IF NOT EXISTS leetcode_solutions (
 
 const other_activities = `
 CREATE TABLE IF NOT EXISTS other_activities (
-  acticity_id char(36) NOT NULL PRIMARY KEY,
+  activity_id char(36) NOT NULL PRIMARY KEY,
   name TEXT,
   type char(36) NOT NULL,
   description TEXT,
@@ -180,10 +181,10 @@ CREATE TABLE IF NOT EXISTS other_activities (
 
 const user_activities = `
 CREATE TABLE IF NOT EXISTS user_activities (
-  user_acticity_id char(36) NOT NULL PRIMARY KEY,
-  acticity_id char(36) NOT NULL,
+  user_activity_id char(36) NOT NULL PRIMARY KEY,
+  activity_id char(36) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  foreign key (acticity_id) references other_activities(acticity_id)
+  foreign key (activity_id) references other_activities(activity_id)
 );
 `;
 
@@ -210,9 +211,11 @@ CREATE TABLE IF NOT EXISTS intervalActivity (
   end TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   foreign key (interval_id) references intervals(interval_id),
-  foreign key (acticity_id) references other_activities(acticity_id)
+  foreign key (activity_id) references other_activities(activity_id)
 );
 `;
+
+
 
 
 
@@ -272,6 +275,7 @@ async function setupDatabase() {
     console.log('leetcode_solutions table created');
 
     // MISC
+
     console.log(`creating other_activities table`)
     await connection.query(other_activities);
     console.log('other_activities table created');

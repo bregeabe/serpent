@@ -26,8 +26,15 @@ async function resetDatabase() {
       'github_commits',
       'github_repos',
       'github_profiles',
+      'sessions',
+      'posts',
       'users',
+      'user_activities',
+      'other_activities',
+      'intervals',
+      'intervalActivity',
     ];
+
 
     for (const table of tables) {
       try {

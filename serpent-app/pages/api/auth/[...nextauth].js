@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-
-
+const handle_google_auth = require('../../../db/utils/auth/handle-auth')
 
 export default NextAuth({
   providers: [
@@ -16,16 +15,14 @@ export default NextAuth({
       }),
   ],
   debug: true,
-  // Custom options (optional)
   callbacks: {
     async session({ session, token }) {
-      // Add user ID to the session object
       session.user.id = token.sub;
       return session;
     },
     async jwt({ token, account, profile }) {
-      // Attach account and profile data to the token
       if (account) {
+        await handle_google_auth(profile.name, profile.email, profile.sub)
         token.accessToken = account.access_token;
         token.id = profile?.sub;
       }
