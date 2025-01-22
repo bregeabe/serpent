@@ -132,5 +132,6 @@ I added a TODO list in TODO.md to help me spec out how much I am going to have t
 I'm going to bite the bullet and try and finish designing, if you look now, which is benign because you can't see the state of the TODO as I'm writing, but there are only 3/11 pages done. I have more but I don't like the designs as I've continued the development. This is essential (unfortunately) if I actually want to be able to make the backend first. If I have good designs, I will know what I need for the backend, along with a way smoother road to implementing that on the frontend. I hate designing and I'm bad at it but it is a necessary evil for what I'm trying to do.
 
 
-
-
+## 1/22/25
+So not much to say, but I have finished the first dashboard screen design, and I'm starting the tracking design as well. Below is the dashboard design, going to be a lot of work to code on the frontend...
+![dboad](../serpent/assets/new-dashboard.png)
