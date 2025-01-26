@@ -3,16 +3,12 @@
 ## Design
 - [x] login
 - [x] signup
-- [ ] dashboard
-- [ ] main tracking
-- [ ] view sessions
+- [x] dashboard
+- [x] main tracking
+- [x] view sessions
 - [x] edit sessions
-- [ ] create post from session
-- [ ] profile
-- [ ] posts
-- [ ] settings
-- [ ] social
-- [ ] preferences
+- [x] settings
+- [x] preferences
 
 
 ## Frontend
@@ -24,21 +20,13 @@
 - [ ] main tracking
 - [ ] view sessions
 - [ ] edit sessions
-- [ ] create post from session
-- [ ] profile
-- [ ] view another profile
-- [ ] posts
 - [ ] settings
-- [ ] social
-- [ ] preferences
+- [x] preferences
 
 ## Backend
 - [x] login
 - [x] login with OAuth
 - [x] signup
-- [ ] create post
-- [ ] edit post
-- [ ] delete post
 - [ ] track session
 - [ ] edit session
 - [ ] delete session

@@ -135,3 +135,13 @@ I'm going to bite the bullet and try and finish designing, if you look now, whic
 ## 1/22/25
 So not much to say, but I have finished the first dashboard screen design, and I'm starting the tracking design as well. Below is the dashboard design, going to be a lot of work to code on the frontend...
 ![dboad](../serpent/assets/new-dashboard.png)
+
+## 1/25/25
+Okay well school and work along with this has been busy I won't lie. But the designing is done! I finished the tracking page, view and edit sessions, along with the settings page. Now, there is a change to note that I'm taking the social aspect out of the picture for right now. There are two main reasons:
+1. I need things to put that I'm going to add after it's finished
+2. There's no need to allocate my time to a feature geared towards a large user base when I couldn't care less if this app gains a large user base.
+With that said, design is done! I'm going to hit hard on implementing the vscode extension next. That'll be a task to learn. I already read these articles:
+- https://code.visualstudio.com/api/get-started/your-first-extension
+- https://www.freecodecamp.org/news/making-vscode-extension/
+
+But all in all they weren't overly helpful for what I needed. It will be interesting to learn how to do this although it doesn't seem too crazy difficult. either way, time is ticking and I have to pick up the pace on this stuff if I want to get this done (and graduate).
