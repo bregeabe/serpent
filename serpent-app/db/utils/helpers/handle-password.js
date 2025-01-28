@@ -11,6 +11,7 @@ async function hash_password(password) {
 }
 
 async function verify_password(password, hashedPassword) {
+    console.log(password)
     try {
         return await argon2.verify(hashedPassword, password);
     } catch (err) {

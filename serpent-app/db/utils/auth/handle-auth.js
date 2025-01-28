@@ -1,12 +1,12 @@
 const create_connection = require('../connection');
 const { handle_name, generate_unique_username} = require('../helpers/handle-name');
 const handle_google_username = require('../helpers/handle-google-username');
-const does_user_exist = require('../helpers/handle-login');
+const { does_user_exist, does_email_exist } = require('../helpers/handle-login');
 const { hash_password, verify_password} = require('../helpers/handle-password')
 import {v4 as uuidv4} from 'uuid';
 //TODO: username is made by email, handle if a username is the same as an already existing one in the database, i.e. if abrege11@gmail.com signs up but abrege11 is already a user, we add a 1 to the end, then a 2, and so on.
 
-async function handle_google_auth(name, email, google_id) {
+const handle_google_auth = async function (name, email, google_id) {
     const [first_name, last_name] = handle_name(name)
     const username = handle_google_username(email)
     if (await does_user_exist(username)) {
@@ -33,9 +33,13 @@ async function handle_google_auth(name, email, google_id) {
     }
 }
 
-async function handle_signup(user) {
+const handle_signup = async function (user) {
     try {
         const connection = await create_connection();
+        const isDuplicate = await does_email_exist(user.email);
+        if (isDuplicate) {
+            return {created: false, message: "email already exists"};
+        }
         if (await does_user_exist(user.username)) {
             user.username = await generate_unique_username(user.username, connection)
         }
@@ -54,17 +58,17 @@ async function handle_signup(user) {
         const [res] = await connection.query(query, values)
         console.log('User inserted successfully:', res);
         await connection.end();
-        return 'user created successfully';
+        return {created: true, message: 'user created successfully'};
     } catch (err) {
         console.error('error creating user with signup: ', err.message)
         throw err;
     }
 }
 
-async function handle_vanilla_login(username, password) {
+const handle_vanilla_login = async function (username, password) {
     try {
         const connection = await create_connection();
-        const query = `SELECT username, password FROM users WHERE username = ?`
+        const query = `SELECT email, password FROM users WHERE email = ?`
         const [rows] = await connection.query(query, [username])
         await connection.end();
 
@@ -73,6 +77,10 @@ async function handle_vanilla_login(username, password) {
         }
 
         const currentPasswordHash = rows[0].password;
+
+        if (!currentPasswordHash) {
+            return { authenticated: false, message: 'Please sign in with Google' }
+        }
 
         const isPasswordValid = await verify_password(password, currentPasswordHash)
 
@@ -91,4 +99,4 @@ module.exports = {
     handle_google_auth,
     handle_signup,
     handle_vanilla_login
-}
+};

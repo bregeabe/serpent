@@ -1,6 +1,6 @@
 const create_connection = require('../connection');
 
-async function does_user_exist(username) {
+const does_user_exist = async function (username) {
     try {
         const connection = await create_connection();
         const query = `SELECT username FROM users WHERE username = ?`;
@@ -14,21 +14,14 @@ async function does_user_exist(username) {
     }
 }
 
-async function auth(username, passwordHash) {
+const does_email_exist = async function (email) {
     try {
         const connection = await create_connection();
-        const query = `SELECT username FROM users WHERE username = ?`;
-        const [rows] = await connection.query(query, [username]);
-
+        const query = `SELECT email FROM users WHERE email = ?`;
+        const [rows] = await connection.query(query, [email]);
         await connection.end();
+        return rows.length > 0;
 
-        if (rows.length > 0) {
-            console.log('User exists:', rows[0].username);
-            return true;
-        } else {
-            console.log('User does not exist');
-            return false;
-        }
     } catch (err) {
         console.error('Error checking user existence:', err.message);
         throw err;
@@ -37,5 +30,5 @@ async function auth(username, passwordHash) {
 
 module.exports = {
     does_user_exist,
-    auth,
+    does_email_exist,
 }

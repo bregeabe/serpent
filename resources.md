@@ -145,3 +145,20 @@ With that said, design is done! I'm going to hit hard on implementing the vscode
 - https://www.freecodecamp.org/news/making-vscode-extension/
 
 But all in all they weren't overly helpful for what I needed. It will be interesting to learn how to do this although it doesn't seem too crazy difficult. either way, time is ticking and I have to pick up the pace on this stuff if I want to get this done (and graduate).
+
+
+## 1/28/25
+Okay so I mentioned that I wanted to start with the VSCode extension but I think that counteracts my attempt to efficiently engineer this project. I don't know anything about making VSCode extensions, and from the stuff I've watched, I don't think it will be something that can be done with just common sense. Therefore I think it falls in the same category as frontend, so I'll begrudgingly finish the backend stuff that I am dreading but know that I have to do.
+I'm talking about seeders, I hate seeders, and they take forever. I also need to test more edge cases of my endpoints that I created as the structure of the database calls are pretty trivial, but SQL always throws some curveball at you, even if it's from the most simple endpoint known to man.
+
+Update a little bit later:
+- https://nextjs.org/docs/app/api-reference/file-conventions/route
+
+That link is a good resource to understand what I faced today. I was trying to make these endpoints the normal Node way, but Next.js doesn't like that as they handle it themselves. The main idea of endpoints still stands however. Basically, to understand what I'm doing here, when you click a button, it will have an 'onClick' event that calls a function of your choice. In the app/api/ directory, you store what endpoints you want to be made available to use in your application. So, I created the directories /app/api/setup/login, and /app/api/setup/signup, calling them respectively. Now, for the actual frontend implementation I haven't done this, but I got to creating the actual route.js files to handle these HTTPS requests unlike before where I really just created the functions to actually __query__ the database. Now, in postman I can set my url to my local host base, add 'api/setup/login' to the end, navigate to the 'Body' tab, click 'raw' and enter in a json object which will correspond to what I want to pass in.
+
+In the spirit of the entire point of this document, let me show a quick example of what I mean
+![ex](../serpent/assets/endpoint-example.png)
+
+in that picture, you'll notice that 'body.x' corresponds to each JSON field passed in through Postman. It's really that simple, how you prepare this object on the FE is actually something I don't know, but i'm sure isnt rocket science and will figure out when the time comes.
+
+However, from a backend standpoint, that's it. You pass your data in, usually through the body, and execute your function using that data like any other function you've ever written.

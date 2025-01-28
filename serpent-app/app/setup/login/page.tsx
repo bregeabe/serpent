@@ -39,7 +39,7 @@ export default function LoginPage() {
         </div>
         <div className={pageStyles.ctas}>
           <Button
-            href="/setup/login" variant="primary" width="100px"
+            href="/api/setup/login" variant="primary" width="100px"
           >
             login
           </Button>
