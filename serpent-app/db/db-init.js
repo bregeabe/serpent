@@ -24,21 +24,6 @@ CREATE TABLE IF NOT EXISTS users (
 );
 `;
 
-const posts = `
-CREATE TABLE IF NOT EXISTS posts (
-  post_id char(36) NOT NULL PRIMARY KEY,
-  user_id char(36) NOT NULL,
-  title TEXT,
-  duration TIMESTAMP,
-  chartData TEXT,
-  public BOOLEAN,
-  medals TEXT,
-  posted_at TIMESTAMP,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  foreign key (user_id) references users(user_id)
-);
-`;
-
 const sessions = `
 CREATE TABLE IF NOT EXISTS sessions (
   session_id char(36) NOT NULL PRIMARY KEY,
@@ -47,8 +32,7 @@ CREATE TABLE IF NOT EXISTS sessions (
   start TIMESTAMP,
   end TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  foreign key (user_id) references users(user_id),
-  foreign key (post_id) references posts(post_id)
+  foreign key (user_id) references users(user_id)
 );
 `;
 
@@ -235,10 +219,6 @@ async function setupDatabase() {
     console.log(`creating users table`)
     await connection.query(users);
     console.log('users table created');
-
-    console.log(`creating posts table`)
-    await connection.query(posts);
-    console.log('posts table created');
 
     console.log(`creating sessions table`)
     await connection.query(sessions);
