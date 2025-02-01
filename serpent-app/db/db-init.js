@@ -28,7 +28,6 @@ const sessions = `
 CREATE TABLE IF NOT EXISTS sessions (
   session_id char(36) NOT NULL PRIMARY KEY,
   user_id char(36) NOT NULL,
-  post_id char(36) NOT NULL,
   start TIMESTAMP,
   end TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
