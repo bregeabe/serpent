@@ -190,8 +190,6 @@ CREATE TABLE IF NOT EXISTS intervalActivity (
   solution_id char(36),
   activity_id char(36),
   submission_id char(36),
-  start TIMESTAMP,
-  end TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   foreign key (interval_id) references intervals(interval_id),
   foreign key (activity_id) references other_activities(activity_id)

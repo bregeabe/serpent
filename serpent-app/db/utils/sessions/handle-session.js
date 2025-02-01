@@ -93,8 +93,8 @@ const insertActivity = async function (activity) {
     try {
         const connection = await create_connection();
         const query = `
-            INSERT INTO intervalActivity (interval_activity_id, interval_id, commit_id, solution_id, activity_id, submission_id, start, end)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO intervalActivity (interval_activity_id, interval_id, commit_id, solution_id, activity_id, submission_id)
+            VALUES (?, ?, ?, ?, ?, ?)
         `;
         const values = [
             uuidv4(),
@@ -103,8 +103,6 @@ const insertActivity = async function (activity) {
             activity.solution_id || null,
             activity.activity_id || null,
             activity.submission_id || null,
-            activity.start || null,
-            activity.end || null
         ];
         await connection.query(query, values);
         console.log('Activity inserted successfully');

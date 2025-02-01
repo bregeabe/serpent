@@ -26,13 +26,14 @@ async function resetDatabase() {
       'github_commits',
       'github_repos',
       'github_profiles',
+      'intervalActivity',
+      'intervals',
       'sessions',
       'posts',
       'users',
       'user_activities',
       'other_activities',
-      'intervals',
-      'intervalActivity',
+
     ];
 
 
