@@ -27,11 +27,11 @@
 - [x] login
 - [x] login with OAuth
 - [x] signup
-- [ ] track session
+- [x] track session
 - [ ] edit session
 - [ ] delete session
 - [ ] settings
-- [ ] create custom activity
+- [x] create custom activity
 - [ ] get dashboard information
 
 ## Misc
