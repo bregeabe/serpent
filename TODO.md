@@ -28,11 +28,12 @@
 - [x] login with OAuth
 - [x] signup
 - [x] track session
-- [ ] edit session
-- [ ] delete session
+- [x] edit session
+- [x] delete session
 - [ ] settings
 - [x] create custom activity
 - [ ] get dashboard information
+- [ ] permissions
 
 ## Misc
 - [x] leetcode data getters
