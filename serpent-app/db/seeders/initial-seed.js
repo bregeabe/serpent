@@ -36,11 +36,11 @@ async function seedDatabase() {
         console.log('seeding interval activities...');
         const interval_activity_id = uuidv4();
         await connection.query(`
-            INSERT INTO intervalActivity (interval_activity_id, interval_id, commit_id, solution_id, activity_id, submission_id, created_at)
+            INSERT INTO interval_activity (interval_activity_id, interval_id, commit_id, solution_id, activity_id, submission_id, created_at)
             VALUES ('${interval_activity_id}', '${interval_id}', NULL, NULL, NULL, NULL, NOW());
         `);
 
-        console.log('upvoting Activity...');
+        console.log('upvoting activity...');
         await connection.query(`
             UPDATE other_activities
             SET upvotes = upvotes + 1

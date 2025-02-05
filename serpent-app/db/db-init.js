@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS intervals (
 `;
 
 const intervalActivity = `
-CREATE TABLE IF NOT EXISTS intervalActivity (
+CREATE TABLE IF NOT EXISTS interval_activity (
   interval_activity_id char(36) NOT NULL PRIMARY KEY,
   interval_id char(36) NOT NULL,
   commit_id char(36),
@@ -265,9 +265,9 @@ async function setupDatabase() {
     await connection.query(intervals);
     console.log('intervals table created');
 
-    console.log(`creating intervalActivity table`)
+    console.log(`creating interval_activity table`)
     await connection.query(intervalActivity);
-    console.log('intervalActivity table created');
+    console.log('interval_activity table created');
 
     await connection.end();
     console.log('db initialized, exiting.');

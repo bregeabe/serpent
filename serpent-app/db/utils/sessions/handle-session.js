@@ -113,7 +113,7 @@ const upsertIntervalActivity = async function (activity) {
     try {
         const connection = await create_connection();
         const query = `
-            INSERT INTO intervalActivity (interval_activity_id, interval_id, commit_id, solution_id, activity_id, submission_id)
+            INSERT INTO interval_activity (interval_activity_id, interval_id, commit_id, solution_id, activity_id, submission_id)
             VALUES (?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE
             interval_id = VALUES(interval_id),
@@ -202,7 +202,7 @@ const deleteActivity = async function (activity_id) {
 const deleteIntervalActivity = async function (interval_activity_id) {
     try {
         const connection = await create_connection();
-        const query = `DELETE FROM intervalActivity WHERE interval_activity_id = ?`;
+        const query = `DELETE FROM interval_activity WHERE interval_activity_id = ?`;
         const [res] = await connection.query(query, [interval_activity_id]);
 
         if (res.affectedRows > 0) {
