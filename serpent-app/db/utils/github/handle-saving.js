@@ -170,6 +170,20 @@ const doesGithubCommitExist = async function (commitSha) {
     }
 };
 
+const getUsersReposFromProfileId = async function (profileId) {
+    try {
+        const connection = await create_connection();
+        const query = `SELECT repo_id FROM github_repos WHERE profile_id = ?`;
+        const [rows] = await connection.query(query, [profileId]);
+
+        await connection.end();
+
+        return rows.map(row => row.repo_id);
+    } catch (error) {
+        console.error('Error fetching repos for profile_id:', error.message);
+        return [];
+    }
+};
 
 module.exports = {
     upsertGithubProfile,

@@ -196,10 +196,6 @@ CREATE TABLE IF NOT EXISTS interval_activity (
 );
 `;
 
-
-
-
-
 async function setupDatabase() {
   try {
 

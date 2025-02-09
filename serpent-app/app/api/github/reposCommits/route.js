@@ -1,11 +1,6 @@
 import { upsertGithubCommit, doesGithubCommitExist, getRepoIdFromName } from '../../../../db/utils/github/handle-saving'
-import { authenticateRequest } from '../../../../db/utils/auth/authenticate_request';
 
 export async function POST(request) {
-  const auth = authenticateRequest(request);
-  if (auth.error) {
-      return new Response(JSON.stringify({ error: auth.error }), { status: auth.status });
-  }
     const { searchParams } = new URL(request.url);
     const username = searchParams.get('username');
     const repoName = searchParams.get('repoName');
