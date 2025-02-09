@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS github_commits (
   url TEXT NOT NULL,
   message TEXT,
   date TIMESTAMP,
-  comitter_username varchar(100),
+  committer_username varchar(100),
   committer_id INT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   foreign key (repo_id) references github_repos(repo_id)

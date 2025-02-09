@@ -1,6 +1,7 @@
 const create_connection = require('../utils/connection');
 const { v4: uuidv4 } = require('uuid');
 
+
 async function seedDatabase() {
     const connection = await create_connection();
 
@@ -9,7 +10,7 @@ async function seedDatabase() {
         const user_id = uuidv4();
         await connection.query(`
             INSERT INTO users (user_id, email, first_name, last_name, username, password, github_username, leetcode_username, created_at)
-            VALUES ('${user_id}', 'abeabebrege@gmail.com', 'Abe', 'Brege', 'imabe', 'password123', 'abrege11', 'abrege11', NOW());
+            VALUES ('${user_id}', 'abeabebrege@gmail.com', 'Abe', 'Brege', 'imabe', '$argon2id$v=19$m=65536,t=3,p=4$2qwLF/YTnjP/ktjuVPFIEA$hDNg+X+OhFc3R3t8HFHpVukTrLfCj/DfqwCbTDj6M44', 'abrege11', 'abrege11', NOW());
         `);
 
         console.log('seeding sessions...');

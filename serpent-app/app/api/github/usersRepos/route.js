@@ -1,4 +1,11 @@
-export async function GET(request) {
+import { upsertGithubRepo, doesGithubRepoExist, getProfileIdFromUserId } from '../../../../db/utils/github/handle-saving'
+import { authenticateRequest } from '../../../../db/utils/auth/authenticate_request';
+
+export async function POST(request) {
+  const auth = authenticateRequest(request);
+  if (auth.error) {
+      return new Response(JSON.stringify({ error: auth.error }), { status: auth.status });
+  }
   const { searchParams } = new URL(request.url);
   const username = searchParams.get('username');
 
@@ -27,13 +34,24 @@ export async function GET(request) {
     }
 
     const repos = await response.json();
-    const repoDetails = await Promise.all(repos.map(async (repo) => {
+    const profileId = await getProfileIdFromUserId(auth.user_id);
+    const repoDataList = await Promise.all(repos.map(async (repo) => {
+      const existingRepoId = await doesGithubRepoExist(repo.name);
+
       return {
-        repoName: repo.name,
+        repo_id: existingRepoId,
+        profile_id: profileId,
+        name: repo.name,
+        url: repo.html_url
       };
     }));
 
-    return new Response(JSON.stringify(repoDetails), { status: 200 });
+    for (const repoData of repoDataList) {
+      await upsertGithubRepo(repoData);
+    }
+
+    return new Response(JSON.stringify({ success: true, inserted: repoDataList.length }), { status: 200 });
+
   } catch (error) {
     console.error('Error:', error);
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
