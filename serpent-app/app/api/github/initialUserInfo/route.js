@@ -1,14 +1,7 @@
-import { authenticateRequest } from '../../../../db/utils/auth/authenticate_request';
 import { upsertGithubProfile, doesGithubProfileExist } from '../../../../db/utils/github/handle-saving'
 
 
 export async function POST(request) {
-  console.log('Received Headers:', request.headers);
-  const auth = authenticateRequest(request);
-  if (auth.error) {
-      return new Response(JSON.stringify({ error: auth.error }), { status: auth.status });
-  }
-  console.log(auth)
   const { searchParams } = new URL(request.url);
   const username = searchParams.get('username');
 
@@ -43,7 +36,7 @@ export async function POST(request) {
     const profileData = {
       profile_id: existingProfileId,
       github_id: data.id,
-      user_id: auth.user_id,
+      user_id: process.env.USER_ID,
       username: data.login,
       name: data.name || null,
       url: data.html_url,
@@ -52,7 +45,7 @@ export async function POST(request) {
       followers: data.followers || 0,
       following: data.following || 0,
       account_created: data.created_at
-        ? new Date(data.created_at).toISOString().slice(0, 19).replace("T", " ") 
+        ? new Date(data.created_at).toISOString().slice(0, 19).replace("T", " ")
         : null
     };
 

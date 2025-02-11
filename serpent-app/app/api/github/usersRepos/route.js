@@ -1,11 +1,6 @@
 import { upsertGithubRepo, doesGithubRepoExist, getProfileIdFromUserId } from '../../../../db/utils/github/handle-saving'
-import { authenticateRequest } from '../../../../db/utils/auth/authenticate_request';
 
 export async function POST(request) {
-  const auth = authenticateRequest(request);
-  if (auth.error) {
-      return new Response(JSON.stringify({ error: auth.error }), { status: auth.status });
-  }
   const { searchParams } = new URL(request.url);
   const username = searchParams.get('username');
 
@@ -34,7 +29,7 @@ export async function POST(request) {
     }
 
     const repos = await response.json();
-    const profileId = await getProfileIdFromUserId(auth.user_id);
+    const profileId = await getProfileIdFromUserId(process.env.USER_ID);
     const repoDataList = await Promise.all(repos.map(async (repo) => {
       const existingRepoId = await doesGithubRepoExist(repo.name);
 

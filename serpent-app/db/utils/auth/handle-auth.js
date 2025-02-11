@@ -1,38 +1,8 @@
 const create_connection = require('../connection');
-const { handle_name, generate_unique_username} = require('../helpers/handle-name');
-const handle_google_username = require('../helpers/handle-google-username');
 const { does_user_exist, does_email_exist } = require('../helpers/handle-login');
 const { hash_password, verify_password} = require('../helpers/handle-password');
 import {v4 as uuidv4} from 'uuid';
 import jwt from 'jsonwebtoken'
-const SECRET_KEY = process.env.JWT_SECRET
-
-const handle_google_auth = async function (name, email, google_id) {
-    const [first_name, last_name] = handle_name(name)
-    const username = handle_google_username(email)
-    if (await does_user_exist(username)) {
-        username = await generate_unique_username(username, connection)
-    }
-    try {
-        const connection = await create_connection();
-        const query = `INSERT INTO users (
-            user_id, google_id, first_name, last_name, email, username
-        ) VALUES (?, ?, ?, ?, ?, ?)`
-        const values = [
-            uuidv4(),
-            google_id,
-            first_name,
-            last_name,
-            email,
-            username
-        ]
-        const [res] = await connection.query(query, values)
-        console.log('User inserted successfully:', res);
-        await connection.end();
-    } catch (err) {
-        console.error('error creating user with google auth: ', err.message)
-    }
-}
 
 const handle_signup = async function (user) {
     try {
@@ -41,15 +11,12 @@ const handle_signup = async function (user) {
         if (isDuplicate) {
             return {created: false, message: "email already exists"};
         }
-        if (await does_user_exist(user.username)) {
-            user.username = await generate_unique_username(user.username, connection)
-        }
         const query = `INSERT INTO users (
             user_id, first_name, last_name, email, username, password
         ) VALUES (?, ?, ?, ?, ?, ?)`
         const password = await hash_password(user.password)
         const values = [
-            uuidv4(),
+            process.env.USER_ID,
             user.first_name,
             user.last_name,
             user.email,
@@ -89,9 +56,7 @@ const handle_vanilla_login = async function (username, password) {
         if (!isPasswordValid) {
             return { authenticated: false, message: 'Invalid password' };
         }
-        const token = jwt.sign({ userId }, SECRET_KEY, { expiresIn: '1h' });
-
-        return { authenticated: true, token, message: 'Authentication successful' };
+        return { authenticated: true, message: 'Authentication successful' };
 
     } catch (err) {
         console.error('authentication error', err.message);
@@ -100,7 +65,6 @@ const handle_vanilla_login = async function (username, password) {
 }
 
 module.exports = {
-    handle_google_auth,
     handle_signup,
     handle_vanilla_login
 };
