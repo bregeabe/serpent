@@ -1,3 +1,6 @@
+import { upsertLeetCodeSubmissions, doesLeetCodeSubmissionExist, getProfileIdFromUserId } from "../../../../db/utils/leetcode/handle-saving";
+
+
 const recentSubmissionsQuery = `
     query userPublicProfile($username: String!) {
         recentSubmissionList(username: $username) {
@@ -20,7 +23,7 @@ const problemDetailsQuery = `
     }
 `;
 
-export async function GET(request) {
+export async function POST(request) {
     const { searchParams } = new URL(request.url);
     const username = searchParams.get('username');
 
@@ -79,6 +82,30 @@ export async function GET(request) {
                 };
             })
         );
+        const profileId = await getProfileIdFromUserId(process.env.USER_ID);
+
+        const submissionsData = await Promise.all(
+            submissionsWithDifficulty.map(async (submission) => {
+                const timestampFormatted = submission.timestamp
+                    ? new Date(submission.timestamp * 1000).toISOString().slice(0, 19).replace("T", " ")
+                    : null;
+
+                const existingSubmissionId = await doesLeetCodeSubmissionExist(profileId, timestampFormatted);
+
+                return {
+                    submissions_id: existingSubmissionId,
+                    profile_id: profileId,
+                    problem: submission.title,
+                    status: submission.statusDisplay,
+                    language: submission.lang,
+                    difficulty: submission.difficulty,
+                    created_at: timestampFormatted,
+                };
+            })
+        );
+
+        await upsertLeetCodeSubmissions(submissionsData);
+
 
         return new Response(JSON.stringify({ submissions: submissionsWithDifficulty }), { status: 200 });
     } catch (error) {

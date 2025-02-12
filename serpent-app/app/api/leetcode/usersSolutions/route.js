@@ -1,3 +1,5 @@
+import { upsertLeetCodeSolutions, getProfileIdFromUserId, doesLeetCodeSolutionExist } from "../../../../db/utils/leetcode/handle-saving";
+
 const query = `
     query userSolutionTopics($username: String!, $orderBy: TopicSortingOption, $skip: Int, $first: Int) {
         userSolutionTopics(
@@ -23,7 +25,7 @@ const query = `
     }
 `;
 
-export async function GET(request) {
+export async function POST(request) {
   const { searchParams } = new URL(request.url);
   const username = searchParams.get("username");
   const results = searchParams.get("results") ?? 10;
@@ -59,6 +61,31 @@ export async function GET(request) {
         { status: 500 }
       );
     }
+
+    const solutions = data.data.userSolutionTopics.edges.map(edge => edge.node);
+
+    const profileId = await getProfileIdFromUserId(process.env.USER_ID);
+    if (!profileId) {
+        return new Response(JSON.stringify({ error: 'User profile not found' }), { status: 404 });
+    }
+
+    const solutionsData = await Promise.all(
+        solutions.map(async (solution) => {
+            const existingSolutionId = await doesLeetCodeSolutionExist(profileId, solution.id);
+
+            return {
+                solution_id: existingSolutionId || solution.id,
+                profile_id: profileId,
+                name: solution.title,
+                url: solution.url,
+                views: solution.viewCount,
+                question: solution.questionTitle,
+                upvotes: solution.post.voteCount,
+            };
+        })
+    );
+
+    await upsertLeetCodeSolutions(solutionsData);
 
     return new Response(JSON.stringify(data.data), { status: 200 });
   } catch (error) {
