@@ -1,0 +1,6 @@
+.container {
+	padding: 40px;
+	background-color: var(--background-color);
+	min-height: 94vh;
+	color: #fff;
+}

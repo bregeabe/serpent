@@ -1,0 +1,71 @@
+.heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.meta {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 24px;
+}
+
+.intervalBox {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: var(--tertiary-background-color);
+}
+
+.label {
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.submeta {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.timeInput {
+  background-color: var(--foreground-color);
+  color: #fff;
+  border: 1px solid #444;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.select {
+  margin-left: 8px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #444;
+}
+
+.saveButton {
+  background-color: var(--primary-color);
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelButton {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
