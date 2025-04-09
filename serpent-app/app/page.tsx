@@ -17,9 +17,9 @@ export default function Home() {
 
         <div className={pageStyles.ctas}>
           <Button
-            href="/setup/login" variant="primary"
+            href="/dashboard" variant="primary"
           >
-            Get started
+            Use Serpent
           </Button>
           <Button
             href="/about" variant="primary"
