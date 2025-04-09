@@ -19,7 +19,7 @@ export async function create_connection() {
         throw err;
     }
 }
-
+let pool;
 export async function get_pool_connection() {
     if (!pool) {
       pool = mysql.createPool({

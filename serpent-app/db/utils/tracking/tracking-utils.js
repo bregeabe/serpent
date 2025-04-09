@@ -1,4 +1,4 @@
-import create_connection from "../connection";
+import { create_connection } from "../connection";
 import { v4 as uuidv4 } from "uuid";
 
 // nasty format helpers
