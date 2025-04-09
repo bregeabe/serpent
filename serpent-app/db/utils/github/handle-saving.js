@@ -163,7 +163,7 @@ const doesGithubCommitExist = async function (commitSha) {
         const [rows] = await connection.query(query, [commitSha]);
 
         await connection.end();
-        return rows.length > 0 ? rows[0].sha : null;
+        return rows.length > 0 ? rows[0].commit_id : null;
     } catch (error) {
         console.error('Error checking GitHub commit:', error.message);
         return null;

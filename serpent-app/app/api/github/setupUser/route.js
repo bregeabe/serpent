@@ -1,6 +1,5 @@
-import { upsertGithubProfile, doesGithubProfileExist } from '../../../../db/utils/github/handle-saving';
-import { upsertGithubRepo, doesGithubRepoExist, getRepoIdFromName, getUsersReposFromProfileId } from '../../../../db/utils/github/handle-saving';
-import { upsertGithubCommit, doesGithubCommitExist } from '../../../../db/utils/github/handle-saving';
+import { existsSync } from 'fs';
+import { upsertGithubRepo, doesGithubRepoExist, getRepoIdFromName, upsertGithubProfile, doesGithubProfileExist, upsertGithubCommit, doesGithubCommitExist } from '../../../../db/utils/github/handle-saving';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request) {
@@ -101,6 +100,10 @@ export async function POST(request) {
                 const commitSha = commit.sha;
                 const existingCommit = await doesGithubCommitExist(commitSha);
 
+                if (existingCommit) {
+                    return null;
+                }
+
                 return {
                     commit_id: existingCommit,
                     repo_id: repoId,
@@ -115,7 +118,8 @@ export async function POST(request) {
                 };
             }));
 
-            for (const commitData of commitDataList) {
+            const validCommitDataList = commitDataList.filter((c) => c !== null);
+            for (const commitData of validCommitDataList) {
                 await upsertGithubCommit(commitData);
             }
         }
