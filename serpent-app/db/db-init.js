@@ -158,6 +158,7 @@ CREATE TABLE IF NOT EXISTS other_activities (
   description TEXT,
   public BOOLEAN,
   upvotes INT,
+  language TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 `;

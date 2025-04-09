@@ -1,0 +1,214 @@
+.box {
+  background-color: var(--foreground-color);
+  border-radius: 12px;
+  padding: 32px;
+  height: 480px;
+}
+
+
+.profileHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.name {
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 4px;
+}
+
+.username {
+  color: #aaa;
+  font-size: 16px;
+}
+
+.social {
+  text-align: right;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.greenStat {
+  color: #00ff7f;
+  font-weight: 500;
+}
+
+.orangeStat {
+  color: #fbb040;
+  font-weight: 500;
+}
+
+.section {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.rank {
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 8px;
+  width: 32px;
+}
+
+.rank.gold {
+  color: #FFD700;
+}
+
+.rank.silver {
+  color: #C0C0C0;
+}
+
+.rank.bronze {
+  color: #CD7F32;
+}
+
+
+.label {
+  font-size: 18px;
+  color: white;
+  flex: 1;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.time {
+  font-size: 16px;
+  color: var(--primary-color);
+  text-align: right;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 40px;
+  margin-top: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  color: var(--primary-color);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: 15px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.graphBox {
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  background-color: var(--foreground-color);
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.graphPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.dualChartContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+}
+
+.chartWrapper {
+  flex: 1;
+  max-width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  min-height: 300px;
+  width: 400px;
+}
+
+
+.pieWrapper {
+  margin-bottom: 20px;
+}
+
+
+.trackButton {
+  background-color: var(--primary-color);
+  border: none;
+  color: #000;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 60px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.trackButton:hover {
+  background-color: #cc77ff;
+}
+
+.trackTag {
+  border: 1px solid #999;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #eee;
+  width: fit-content;
+}
+
+.scrollableBox {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+
+
+
+

@@ -1,0 +1,25 @@
+.footer {
+  width: 100%;
+  padding: 1rem 0;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  pointer-events: auto;
+}
+
+.icon {
+  color: #aaa;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: #cc99ff;
+}

@@ -53,7 +53,8 @@ export async function POST(request) {
 
     return new Response(JSON.stringify({ success: true, profile: profileData }), { status: 200 });
   } catch (error) {
-    console.error('Error:', error);
-    return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });
+    console.error('Error fetching GitHub user:', error.message || error);
+    return new Response(JSON.stringify({ error: 'Internal Server Error', details: error.message || error }), { status: 500 });
   }
+
 }
