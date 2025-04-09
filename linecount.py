@@ -21,7 +21,7 @@ def scan_directory(directory):
             dirs.remove('.next')
 
         for file in files:
-            if file == 'extension.js':
+            if file == 'extension.js' or file.endswith('.mjs'):
                 continue
             if file.endswith('js'):
                 num_dirs+=1
