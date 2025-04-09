@@ -8,22 +8,12 @@ import {
   getGitHubMonthlyCommitLines
 } from "../../db/utils/dashboard/dashboard-utils";
 import Footer from "../components/inappFooter";
-
-async function setupGitHubAndLeetCode(username: string) {
-  await Promise.all([
-    fetch(`http://localhost:3000/api/github/setupUser?username=${username}`, {
-      method: "POST",
-    }),
-    fetch(`http://localhost:3000/api/leetcode/setupUser?username=${username}`, {
-      method: "POST",
-    }),
-  ]);
-}
+import { Lazy } from "./Lazy"
 
 export default async function Home() {
   const userId = process.env.USER_ID;
 
-  await setupGitHubAndLeetCode("abrege11");
+  // await setupGitHubAndLeetCode("abrege11");
 
   // load data
   const [rawData, top6, leetcodeDifficultyData, githubLineData] = await Promise.all([
@@ -47,6 +37,7 @@ export default async function Home() {
 
   return (
     <div className={styles.page}>
+      <Lazy username="abrege11"/>
       <main className={styles.main}>
         <div className={styles.container}>
           <TextBox data={data} className={styles.textBox} width="400px" />
