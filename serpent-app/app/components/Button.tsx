@@ -1,19 +1,36 @@
 import styles from "./styles/Button.module.css";
-import Link from 'next/link'
+import Link from 'next/link';
 
 type ButtonProps = {
     children: React.ReactNode;
-    onClick?: () => void;
+    onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
     href?: string;
     variant?: 'primary' | 'secondary';
     isExternal?: boolean;
-    width?: string | number;
+    width?: string | number,
+    type?: "button" | "submit";
 }
 
-export default function Button({ children, onClick, href, variant = 'primary', isExternal = false, width }: ButtonProps) {
+export default function Button({ children, onClick, href, variant = 'primary', isExternal = false, width, type="button" }: ButtonProps) {
     const buttonStyle = {
         width: typeof width === 'number' ? `${width}px` : width,
     };
+
+    if (onClick) {
+        return (
+          <button
+            type={type}
+            className={`${styles.button} ${styles[variant]}`}
+            onClick={(e) => {
+              e.preventDefault();
+              onClick(e);
+            }}
+            style={buttonStyle}
+          >
+            {children}
+          </button>
+        );
+      }
 
     if (href) {
         if (isExternal) {
@@ -37,7 +54,7 @@ export default function Button({ children, onClick, href, variant = 'primary', i
     }
 
     return (
-        <button className={`${styles.button} ${styles[variant]}`} onClick={onClick}>
+        <button className={`${styles.button} ${styles[variant]}`} onClick={onClick} style={buttonStyle}>
             {children}
         </button>
     );

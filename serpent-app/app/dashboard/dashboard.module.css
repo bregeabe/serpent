@@ -1,0 +1,42 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+  width: 100%;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  overflow: hidden;
+  grid-template-areas:
+    "text graph1"
+    "text graph2";
+}
+
+.textBox {
+  margin-top: 2vh;
+  grid-area: text;
+}
+
+.graphBoxTop {
+  margin-top: 2vh;
+  grid-area: graph1;
+}
+
+.graphBoxBottom {
+  grid-area: graph2;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #000;
+}
+
+.main {
+  flex: 1;
+  padding-bottom: 1rem;
+}
+
+
+

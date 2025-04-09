@@ -1,38 +1,58 @@
-"use client";
-import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import Button from '../components/Button';
+import styles from "./dashboard.module.css";
+import { TextBox, GraphBox } from "./components/Box";
+import { MultiGraphBox } from "./components/MultiGraphBox";
+import {
+  getCompleteUserDashboardData,
+  getTop6ActivitiesByUser,
+  getLeetCodeDifficultyPie,
+  getGitHubMonthlyCommitLines
+} from "../../db/utils/dashboard/dashboard-utils";
+import Footer from "../components/inappFooter";
 
+export default async function Home() {
+  const userId = process.env.USER_ID;
 
-export default function Dashboard() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    if (session) {
-      router.push("/dashboard");
-    }
-  }, [session, router]);
+  // load data
+  const [rawData, top6, leetcodeDifficultyData, githubLineData] = await Promise.all([
+    // gets all data for left text box
+    getCompleteUserDashboardData(userId),
+    // gets data for top right graph
+    getTop6ActivitiesByUser(userId),
+    // leetcode pie chart data
+    getLeetCodeDifficultyPie(userId),
+    // github commits for line chart data
+    getGitHubMonthlyCommitLines(userId)
+  ]);
 
-  if (status === "loading") {
-    return <p>Loading...</p>;
+  if (!rawData) {
+    return <div>Error loading dashboard</div>;
   }
 
+  const data = {
+    ...rawData,
+  };
+
   return (
-    <div>
-      {session?.user ? (
-        <>
-          <h1>Welcome, {session.user.name}</h1>
-          <p>Email: {session.user.email}</p>
-        </>
-      ) : (
-        <Button
-        href='/setup/login' variant="primary" width="100px"
-        > back to home</Button>
-      )}
-    <Button
-    onClick={() => signOut()} variant="primary" width="100px"
-    > log out</Button>
+    <div className={styles.page}>
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <TextBox data={data} className={styles.textBox} width="400px" />
+          <GraphBox
+            className={styles.graphBoxTop}
+            width="100%"
+            height="350px"
+            activityData={top6}
+          />
+          <MultiGraphBox
+            className={styles.graphBoxBottom}
+            width="100%"
+            height="350px"
+            chart1Data={leetcodeDifficultyData ?? []}
+            chart2Data={githubLineData}
+          />
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }
