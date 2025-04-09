@@ -1,4 +1,4 @@
-const create_connection = require('../utils/connection');
+import { create_connection } from '../utils/connection';
 const { v4: uuidv4 } = require('uuid');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 require('dotenv').config();

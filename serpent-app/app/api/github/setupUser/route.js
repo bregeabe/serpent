@@ -1,4 +1,3 @@
-import { existsSync } from 'fs';
 import { upsertGithubRepo, doesGithubRepoExist, getRepoIdFromName, upsertGithubProfile, doesGithubProfileExist, upsertGithubCommit, doesGithubCommitExist } from '../../../../db/utils/github/handle-saving';
 import { v4 as uuidv4 } from 'uuid';
 

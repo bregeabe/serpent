@@ -9,7 +9,7 @@ const dbConfig = {
   };
 const schemaName = process.env.SCHEMA_NAME;
 
-async function create_connection() {
+export async function create_connection() {
     try {
         const connection = await mysql.createConnection(dbConfig);
         await connection.changeUser({ database: schemaName });
@@ -20,4 +20,21 @@ async function create_connection() {
     }
 }
 
-module.exports = create_connection;
+export async function get_pool_connection() {
+    if (!pool) {
+      pool = mysql.createPool({
+        ...dbConfig,
+        database: schemaName,
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0,
+      });
+    }
+
+    try {
+      return await pool.getConnection();
+    } catch (err) {
+      console.error("couldn't get pooled connection:", err.message);
+      throw err;
+    }
+  }

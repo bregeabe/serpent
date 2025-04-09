@@ -1,4 +1,4 @@
-const create_connection = require('../connection');
+import { create_connection } from '../connection';
 const { v4: uuidv4 } = require('uuid');
 
 const upsertSession = async function (session) {

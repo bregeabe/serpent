@@ -1,9 +1,9 @@
-const create_connection = require('../connection');
+const get_pool_connection = require('../connection');
 const { v4: uuidv4 } = require('uuid');
 
 const upsertGithubProfile = async function (profile) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `
             INSERT INTO github_profiles (profile_id, github_id, user_id, username, name, url, bio, num_repos, followers, following, account_created)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -32,17 +32,19 @@ const upsertGithubProfile = async function (profile) {
         ];
         await connection.query(query, values);
         console.log('GitHub profile upserted successfully');
-        await connection.end();
+
         return new Response(JSON.stringify({ message: 'Github profile upserted successfully' }), { status: 200 });
     } catch (error) {
         console.error('Error upserting GitHub profile:', error.message);
         return new Response(JSON.stringify({ message: 'issue upserting Github profile' }), { status: 400 });
+    } finally {
+        connection.release();
     }
 };
 
 const upsertGithubRepo = async function (repo) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `
             INSERT INTO github_repos (repo_id, profile_id, name, url)
             VALUES (?, ?, ?, ?)
@@ -59,17 +61,19 @@ const upsertGithubRepo = async function (repo) {
         ];
         await connection.query(query, values);
         console.log('GitHub repository upserted successfully');
-        await connection.end();
+
         return new Response(JSON.stringify({ message: 'Github repo upserted successfully' }), { status: 200 });
     } catch (error) {
         console.error('Error upserting GitHub repository:', error.message);
         return new Response(JSON.stringify({ message: 'issue upserting Github repo' }), { status: 400 });
+    } finally {
+        connection.release();
     }
 };
 
 const upsertGithubCommit = async function (commit) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `
             INSERT INTO github_commits (commit_id, repo_id, sha, url, message, date, committer_username, committer_id)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -92,96 +96,102 @@ const upsertGithubCommit = async function (commit) {
         ];
         await connection.query(query, values);
         console.log('GitHub commit upserted successfully');
-        await connection.end();
         return new Response(JSON.stringify({ message: 'Github commit upserted successfully' }), { status: 200 });
     } catch (error) {
         console.error('Error upserting GitHub commit:', error.message);
         return new Response(JSON.stringify({ message: 'issue upserting Github commit' }), { status: 400 });
+    } finally {
+        connection.release();
     }
 };
 
 const doesGithubProfileExist = async function (githubId) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `SELECT github_id FROM github_profiles WHERE github_id = ? LIMIT 1`;
         const [rows] = await connection.query(query, [githubId]);
 
-        await connection.end();
         return rows.length > 0 ? rows[0].github_id : null;
     } catch (error) {
         console.error('Error checking GitHub profile:', error.message);
         return null;
+    } finally {
+        connection.release();
     }
 };
 
 const getProfileIdFromUserId = async function (userId) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `SELECT profile_id FROM github_profiles WHERE user_id = ? LIMIT 1`;
         const [rows] = await connection.query(query, [userId]);
 
-        await connection.end();
         return rows.length > 0 ? rows[0].profile_id : null;
     } catch (error) {
         console.error('Error getting profile id', error.message);
         return null;
+    } finally {
+        connection.release();
     }
 };
 
 const getRepoIdFromName = async function (repoName) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `SELECT repo_id FROM github_repos WHERE name = ? LIMIT 1`;
         const [rows] = await connection.query(query, [repoName]);
 
-        await connection.end();
         return rows.length > 0 ? rows[0].repo_id : null;
     } catch (error) {
         console.error('Error getting repo id', error.message);
         return null;
+    } finally {
+        connection.release();
     }
 };
 
 const doesGithubRepoExist = async function (repoName) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `SELECT repo_id FROM github_repos WHERE name = ? LIMIT 1`;
         const [rows] = await connection.query(query, [repoName]);
 
-        await connection.end();
         return rows.length > 0 ? rows[0].name : null;
     } catch (error) {
         console.error('Error checking GitHub repo:', error.message);
         return null;
+    } finally {
+        connection.release();
     }
 };
 
 const doesGithubCommitExist = async function (commitSha) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `SELECT commit_id FROM github_commits WHERE sha = ? LIMIT 1`;
         const [rows] = await connection.query(query, [commitSha]);
 
-        await connection.end();
         return rows.length > 0 ? rows[0].commit_id : null;
     } catch (error) {
         console.error('Error checking GitHub commit:', error.message);
         return null;
+    } finally {
+        connection.release();
     }
 };
 
 const getUsersReposFromProfileId = async function (profileId) {
     try {
-        const connection = await create_connection();
+        const connection = await get_pool_connection();
         const query = `SELECT repo_id FROM github_repos WHERE profile_id = ?`;
         const [rows] = await connection.query(query, [profileId]);
-
-        await connection.end();
 
         return rows.map(row => row.repo_id);
     } catch (error) {
         console.error('Error fetching repos for profile_id:', error.message);
         return [];
+    } finally {
+        connection.release();
     }
 };
 

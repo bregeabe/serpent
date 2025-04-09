@@ -1,4 +1,4 @@
-const create_connection = require('../connection.js');
+import { create_connection } from '../connection.js';
 
 async function getTopLanguagesByUser(userId) {
   const connection = await create_connection();
