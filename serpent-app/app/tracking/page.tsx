@@ -8,7 +8,7 @@ import Footer from "../components/inappFooter";
 
 export default function TrackingPage() {
   const [sessions, setSessions] = useState([]);
-  const userId = process.env.USER_ID;
+  const userId = process.env.NEXT_PUBLIC_USER_ID;
 
   const fetchSessions = async () => {
     const res = await fetch("/api/tracking/session/list");

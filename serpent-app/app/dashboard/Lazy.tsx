@@ -6,11 +6,20 @@ export function Lazy({ username }: { username: string }) {
     async function setupUser() {
       try {
         await Promise.all([
-          fetch(`/api/github/setupUser?username=${username}`, {
+          fetch("/api/github/setupUser", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username }),
           }),
-          fetch(`/api/leetcode/setupUser?username=${username}`, {
+          fetch("/api/leetcode/setupUser", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username }),
+          }),
+          fetch("/api/tracking/setupUser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: "imabe" }),
           }),
         ]);
       } catch (err) {

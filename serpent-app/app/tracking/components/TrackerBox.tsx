@@ -212,7 +212,6 @@ export function TrackerBox({ userId, refreshSessions }: Props) {
               <button
                 className={styles.trackButton}
                 onClick={handleSave}
-                disabled={!sessionEnded}
               >
                 Save
               </button>

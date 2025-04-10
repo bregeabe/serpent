@@ -451,3 +451,25 @@ export async function getGitHubMonthlyCommitLines(userId) {
     await connection.end();
   }
 }
+
+export async function refreshUserTrackingStats(username) {
+  const connection = await create_connection();
+
+  try {
+    const [[{ user_id }]] = await connection.query(
+      `SELECT user_id FROM users WHERE username = ?`,
+      [username]
+    );
+
+    if (!user_id) throw new Error("User not found");
+
+    await Promise.all([
+      getTopLanguagesByUser(user_id),
+      getTopActivitiesByUser(user_id),
+      getUserTopStats(user_id),
+      getUserActivityTotals(user_id)
+    ]);
+  } finally {
+    await connection.end();
+  }
+}
