@@ -105,3 +105,42 @@
   color: #000;
   font-weight: 600;
 }
+
+.pastIntervals {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #444;
+}
+
+.subheading {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #aaa;
+}
+
+.intervalList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.intervalItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.intervalTime {
+  color: #eee;
+}
+
+.intervalActivity {
+  color: #ccc;
+  font-style: italic;
+}
+
+.intervalDuration {
+  color: #aaa;
+}

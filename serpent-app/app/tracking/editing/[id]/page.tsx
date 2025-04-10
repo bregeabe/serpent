@@ -1,14 +1,14 @@
-import { getSessionDetails } from "../../../db/utils/tracking/tracking-utils";
-import { EditingBox } from "./components/EditingBox";
-import Footer from "../../components/inappFooter";
+import { getSessionDetails } from "../../../../db/utils/tracking/tracking-utils";
+import { EditingBox } from "../components/EditingBox";
+import Footer from "../../../components/inappFooter";
 import styles from "./editing.module.css";
 
 interface Props {
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { id: string };
 }
 
-export default async function EditPage({ searchParams }: Props) {
-  const sessionId = typeof searchParams.id === "string" ? searchParams.id : "";
+export default async function EditPage({ params }: Props) {
+  const sessionId = params.id;
 
   if (!sessionId) return <div>Invalid session ID</div>;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "../../dashboard/components/Box";
 import styles from "./ActivityBox.module.css";
 import { LuCalendarDays, LuClock } from "react-icons/lu";
@@ -12,11 +12,19 @@ export interface Session {
   duration: string;
 }
 
-interface Props {
-  sessions: Session[];
-}
+export function RecentActivityBox() {
+  const [sessions, setSessions] = useState<Session[]>([]);
 
-export function RecentActivityBox({ sessions }: Props) {
+  const fetchSessions = async () => {
+    const res = await fetch("/api/tracking/session/list");
+    const data = await res.json();
+    setSessions(data);
+  };
+
+  useEffect(() => {
+    fetchSessions();
+  }, []);
+
   return (
     <Box width="100%" height="100%">
       <div className={styles.section}>
@@ -28,15 +36,20 @@ export function RecentActivityBox({ sessions }: Props) {
           <div className={styles.headerItem}></div>
         </div>
 
-        {sessions.map((session, i) => (
-          <div key={i} className={styles.sessionGrid}>
-            <div className={`${styles.sessionItem} ${styles.date}`}>{session.date}</div>
-            <div className={`${styles.sessionItem} ${styles.duration}`}>{session.duration}</div>
-            <Link href={`/tracking/editing?id=${session.id}`}>
-              <button className={styles.editButton}>edit</button>
-            </Link>
-          </div>
-        ))}
+        {sessions.map((session, i) => {
+          const sessionId = typeof session.id === "string" ? session.id : null;
+          if (!sessionId) return null;
+
+          return (
+            <div key={i} className={styles.sessionGrid}>
+              <div className={`${styles.sessionItem} ${styles.date}`}>{session.date}</div>
+              <div className={`${styles.sessionItem} ${styles.duration}`}>{session.duration}</div>
+              <Link href={`/tracking/editing/${sessionId}`}>
+                <button className={styles.editButton}>edit</button>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </Box>
   );

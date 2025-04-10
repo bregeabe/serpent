@@ -5,12 +5,14 @@ import { Box } from "../../dashboard/components/Box";
 import styles from "./TrackerBox.module.css";
 
 interface Props {
-  userId: string
+  userId: string;
+  refreshSessions: () => void;
 }
 
-export function TrackerBox({ userId }: Props) {
+export function TrackerBox({ userId, refreshSessions }: Props) {
   // state variables
   const [time, setTime] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionStarted, setSessionStarted] = useState(false);
   const [sessionEnded, setSessionEnded] = useState(false);
@@ -22,18 +24,18 @@ export function TrackerBox({ userId }: Props) {
   // timer
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    let startTimestamp = currentStart ? currentStart.getTime() : null;
+    let startTimestamp = currentStart?.getTime();
 
     if (isRunning && startTimestamp) {
       interval = setInterval(() => {
         const now = Date.now();
-        const elapsed = Math.floor((now - startTimestamp) / 1000);
-        setTime(elapsed);
+        setTime(Math.floor((now - startTimestamp) / 1000));
       }, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, currentStart ?? 0]);
+  }, [isRunning, currentStart]);
+
 
 
   // 'what're you working on' data
@@ -63,7 +65,6 @@ export function TrackerBox({ userId }: Props) {
 
   const handleStartStop = () => {
     if (isRunning) {
-      // stop timer
       const stopTime = new Date();
       if (currentStart && selectedActivity) {
         setIntervals((prev) => [
@@ -74,10 +75,11 @@ export function TrackerBox({ userId }: Props) {
             activity: selectedActivity,
           },
         ]);
+        setTotalTime((prev) => prev + Math.floor((stopTime.getTime() - currentStart.getTime()) / 1000));
       }
       setCurrentStart(null);
       setIsRunning(false);
-      // start timer
+      setTime(0);
     } else {
       if (!sessionStarted) setSessionStarted(true);
       setCurrentStart(new Date());
@@ -113,10 +115,11 @@ export function TrackerBox({ userId }: Props) {
 
     if (res.ok) {
       alert("Session saved!");
-      // reset state variables
+      refreshSessions();
       setSessionStarted(false);
       setSessionEnded(false);
       setTime(0);
+      setTotalTime(0);
       setIntervals([]);
       setSelectedActivity(null);
     } else {
@@ -138,6 +141,7 @@ export function TrackerBox({ userId }: Props) {
         <div className={styles.trackerLayout}>
           <div className={styles.timerSection}>
             <div className={styles.timeDisplay}>{formatTime(time)}</div>
+
             <div className={styles.buttonRow}>
               <button className={styles.trackButton} onClick={handleStartStop}>
                 {isRunning ? "Stop" : "Start"}
@@ -150,7 +154,45 @@ export function TrackerBox({ userId }: Props) {
                 End
               </button>
             </div>
+            {/* show the current past intervals in the session */}
+            {intervals.length > 0 && (
+              <div className={styles.pastIntervals}>
+                <h5 className={styles.subheading}>Past Intervals</h5>
+                <ul className={styles.intervalList}>
+                  {intervals.map((interval, i) => {
+                    const start = new Date(interval.start);
+                    const end = new Date(interval.end);
+                    const duration = Math.floor(
+                      (end.getTime() - start.getTime()) / 1000
+                    );
+
+                    return (
+                      <li key={i} className={styles.intervalItem}>
+                        <span className={styles.intervalTime}>
+                          {start.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}{" "}
+                          –{" "}
+                          {end.toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </span>
+                        <span className={styles.intervalActivity}>
+                          {interval.activity}
+                        </span>
+                        <span className={styles.intervalDuration}>
+                          {formatTime(duration)}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </div>
+
           <div className={styles.taskColumn}>
             <div className={styles.statLabel}>what’re you working on?</div>
             <div className={styles.scrollableBox}>

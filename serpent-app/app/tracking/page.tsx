@@ -1,26 +1,38 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import styles from "./tracking.module.css";
-import { getRecentSessionsWithDuration } from "../../db/utils/tracking/tracking-utils.js";
 import { RecentActivityBox } from "./components/ActivityBox";
 import { TrackerBox } from "./components/TrackerBox";
 import Footer from "../components/inappFooter";
 
-export default async function TrackingPage() {
+export default function TrackingPage() {
+  const [sessions, setSessions] = useState([]);
   const userId = process.env.USER_ID;
-  const recentSessions = await getRecentSessionsWithDuration(userId);
+
+  const fetchSessions = async () => {
+    const res = await fetch("/api/tracking/session/list");
+    const data = await res.json();
+    setSessions(data);
+  };
+
+  useEffect(() => {
+    fetchSessions();
+  }, []);
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.boxGrid}>
           <div className={styles.trackerWrapper}>
-            <TrackerBox userId={userId!} />
+            <TrackerBox userId={userId!} refreshSessions={fetchSessions} />
           </div>
           <div className={styles.activityWrapper}>
-            <RecentActivityBox sessions={recentSessions} />
+            <RecentActivityBox/>
           </div>
         </div>
       </main>
-    <Footer />
+      <Footer />
     </div>
   );
 }
