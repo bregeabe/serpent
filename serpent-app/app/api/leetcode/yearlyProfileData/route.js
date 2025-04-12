@@ -52,7 +52,7 @@ export async function GET(request) {
         });
       }
 
-      return new Response(JSON.stringify(data.data), { status: 200 });
+      return new Response(JSON.stringify(data.data), { status: 200, headers: { 'Content-Type': 'application/json' } });
     } catch (error) {
       console.error('Error:', error);
       return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 });

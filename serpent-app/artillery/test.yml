@@ -1,0 +1,95 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 1
+      arrivalRate: 1
+  plugins:
+    expect: {}
+
+scenarios:
+  - name: Test /api/activity/recent
+    flow:
+      - get:
+          url: "/api/activity/recent"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "[0].type"
+            - hasProperty: "[0].label"
+            - hasProperty: "[0].date"
+            - hasProperty: "[0].extra"
+      - get:
+          url: "/api/activity/user"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "[0].activity_id"
+            - hasProperty: "[0].name"
+            - hasProperty: "[0].type"
+            - hasProperty: "[0].description"
+            - hasProperty: "[0].public"
+            - hasProperty: "[0].upvotes"
+            - hasProperty: "[0].language"
+            - hasProperty: "[0].created_at"
+      - get:
+          url: "/api/github/usersReposCommits?username=abrege11"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "[0].repoName"
+            - hasProperty: "[0].commits[0].sha"
+            - hasProperty: "[0].commits[0].commit.author.name"
+            - hasProperty: "[0].commits[0].commit.message"
+            - hasProperty: "[0].commits[0].commit.verification.verified"
+            - hasProperty: "[0].commits[0].author.login"
+      - get:
+          url: "/api/leetcode/allData?username=abrege11"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "allQuestionsCount"
+            - hasProperty: "matchedUser"
+            - hasProperty: "recentSubmissionList"
+            - hasProperty: "matchedUserStats"
+            - hasProperty: "allQuestionsCount[0].difficulty"
+            - hasProperty: "allQuestionsCount[0].count"
+            - hasProperty: "matchedUser.contributions.points"
+            - hasProperty: "matchedUser.profile.ranking"
+            - hasProperty: "matchedUser.submitStats.acSubmissionNum[0].difficulty"
+            - hasProperty: "matchedUser.submitStats.totalSubmissionNum[0].submissions"
+            - hasProperty: "recentSubmissionList[0].title"
+            - hasProperty: "recentSubmissionList[0].statusDisplay"
+            - hasProperty: "matchedUserStats.submitStats.acSubmissionNum[0].count"
+            - hasProperty: "matchedUserStats.submitStats.totalSubmissionNum[0].difficulty"
+      - get:
+          url: "/api/leetcode/dailyQuestion"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "activeDailyCodingChallengeQuestion.date"
+            - hasProperty: "activeDailyCodingChallengeQuestion.userStatus"
+            - hasProperty: "activeDailyCodingChallengeQuestion.link"
+            - hasProperty: "activeDailyCodingChallengeQuestion.question.title"
+            - hasProperty: "activeDailyCodingChallengeQuestion.question.acRate"
+            - hasProperty: "activeDailyCodingChallengeQuestion.question.difficulty"
+            - hasProperty: "activeDailyCodingChallengeQuestion.question.topicTags[0].name"
+            - hasProperty: "allQuestionsCount[0].difficulty"
+            - hasProperty: "allQuestionsCount[0].count"
+      - get:
+          url: "/api/leetcode/yearlyProfileData?username=abrege11&year=2024"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "userStatus.checkedInToday"
+            - hasProperty: "matchedUser.userCalendar.activeYears[0]"
+            - hasProperty: "matchedUser.userCalendar.streak"
+            - hasProperty: "matchedUser.userCalendar.totalActiveDays"
+            - hasProperty: "matchedUser.userCalendar.submissionCalendar"
+      - get:
+          url: "/api/tracking/session/list"
+          expect:
+            - statusCode: 200
+            - contentType: application/json
+            - hasProperty: "[0].id"
+            - hasProperty: "[0].date"
+            - hasProperty: "[0].duration"
