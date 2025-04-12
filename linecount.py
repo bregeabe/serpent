@@ -39,7 +39,7 @@ def scan_directory(directory):
         dirs[:] = [d for d in dirs if d not in ['node_modules', '.next']]
 
         for file in files:
-            if file in ['extension.js'] or file.endswith(('.mjs', '.yml')):
+            if file in ['extension.js'] or file.endswith(('.mjs', '.yml', '.cy.js')):
                 continue
             file_path = os.path.join(root, file)
 
