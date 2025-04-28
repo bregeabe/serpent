@@ -107,7 +107,6 @@ export async function POST(request) {
   }
 
   try {
-    // === 1. PROFILE ===
     const profileRes = await fetch('https://leetcode.com/graphql', {
       method: 'POST',
       headers: {
@@ -152,7 +151,6 @@ export async function POST(request) {
 
     await upsertLeetCodeProfile(userProfile);
 
-    // === 2. LANGUAGES ===
     const langRes = await fetch('https://leetcode.com/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Referer: 'https://leetcode.com' },
@@ -173,7 +171,6 @@ export async function POST(request) {
 
     await upsertLeetCodeLanguages(languageRecords);
 
-    // === 3. SOLUTIONS ===
     const solRes = await fetch('https://leetcode.com/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Referer: 'https://leetcode.com' },
@@ -200,7 +197,6 @@ export async function POST(request) {
 
     await upsertLeetCodeSolutions(solutionsData);
 
-    // === 4. SUBMISSIONS ===
     const subRes = await fetch('https://leetcode.com/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Referer: 'https://leetcode.com' },

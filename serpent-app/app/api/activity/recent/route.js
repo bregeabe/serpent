@@ -1,4 +1,4 @@
-import { getRecentMixedActivity } from "../../../../db/utils/tracking/tracking-utils"; // adjust path if needed
+import { getRecentMixedActivity } from "../../../../db/utils/tracking/tracking-utils";
 
 export async function GET(req) {
   const userId = process.env.USER_ID;
