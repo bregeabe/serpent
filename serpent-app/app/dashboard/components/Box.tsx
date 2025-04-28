@@ -230,7 +230,7 @@ export function GraphBox({ className, children, activityData, ...boxProps }: Gra
       legend: { display: false },
       title: {
         display: true,
-        text: 'What have you been working on this week?',
+        text: 'What have you been working on',
         color: 'white',
         font: { size: 16 },
       },
