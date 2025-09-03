@@ -40,20 +40,14 @@ I am going to use Next.js along with MySQL for the database, and host everything
 ## Mockups
 I have begun designing the potential frontend interface, along with the database structure. Below you can see both.
 
-### Database structure
-![db structure](assets/serpent-database-1.png)
-
 ### Login
-![login](assets/serpent-login.png)
+![login](assets/landingpage.png)
 
 ### Dashboard
-![dashboard](assets/serpent-dashboard.png)
+![dashboard](assets/dashboard.png)
 
-### Feed
-![feed](assets/serpent-feed.png)
-
-### Preferences
-![preferences](assets/serpent-preferences.png)
+### Editing
+![feed](assets/editing.png)
 
 ### Tracking
-![tracking](assets/serpent-tracking.png)
+![preferences](assets/tracking.png)
